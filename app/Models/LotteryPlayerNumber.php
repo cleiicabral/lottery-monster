@@ -11,6 +11,10 @@ class LotteryPlayerNumber extends Model
 {
     use HasFactory, TraitUuid, SoftDeletes;
 
+    public $incrementing = false;
+
+    protected $keyType = 'string';
+
     public $timestamps = true;
 
     protected $fillable = [

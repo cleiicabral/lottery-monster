@@ -6,5 +6,6 @@ use App\Models\LotteryTicket;
 
 interface LotteryTicketRepositoryInterface
 {
-    public function create(String $ticketCode, bool $isDrawn): ?LotteryTicket;
+    public function create(string $ticketCode,string $lotterPlayerId, bool $isDrawn = false): ?LotteryTicket;
+    public function show(string $ticketCode): ?LotteryTicket;
 }

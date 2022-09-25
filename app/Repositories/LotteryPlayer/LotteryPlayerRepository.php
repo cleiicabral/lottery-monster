@@ -16,12 +16,10 @@ class LotteryPlayerRepository implements LotteryPlayerRepositoryInterface
 
     public function create(string $fullname): ?LotteryPlayer
     {
-        try {
-            $result = $this->model::create($fullname);
+
+            $result = $this->model::create(['fullname' => $fullname]);
 
             return $result;
-        } catch (\Throwable $th) {
-            return null;
-        }
+
     }
 }

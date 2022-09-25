@@ -18,7 +18,10 @@ class LotteryPlayerNumberRepository implements LotteryPlayerNumberRepositoryInte
     public function create(string $lotteryPlayerId, string $lotteryTicketId, int $numberTicket): ?LotteryPlayerNumber
     {
         try {
-            $result = $this->model::create($lotteryPlayerId, $lotteryTicketId, $numberTicket);
+            $result = $this->model::create([
+                'lottery_player_id'=> $lotteryPlayerId,
+                'lottery_ticket_id' => $lotteryTicketId,
+                'number_ticket' => $numberTicket]);
 
             return $result;
         } catch (\Throwable $th) {

@@ -175,6 +175,12 @@ return [
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
 
+        App\Providers\LotteryTicket\LotteryTicketProvider::class,
+        App\Providers\LotteryPlayer\LotteryPlayerProvider::class,
+        App\Providers\LotteryPlayerNumber\LotteryPlayerNumberProvider::class,
+        App\Providers\NumberDrawn\NumberDrawnProvider::class,
+        App\Providers\LotteryDrawingHeld\LotteryDrawingHeldProvider::class,
+
     ],
 
     /*
@@ -228,5 +234,7 @@ return [
         'View' => Illuminate\Support\Facades\View::class,
 
     ],
+
+    'quantity_numbers_player' => env('QUANTITY_NUMBERS_PLAYER'),
 
 ];

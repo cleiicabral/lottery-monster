@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\Api\LotteryTicket\CheckLotteryTicketResultController;
+use App\Http\Controllers\Api\LotteryTicket\CreateLotteryTicketController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -13,6 +15,9 @@ use Illuminate\Support\Facades\Route;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
+
+Route::post('/create-ticket',[CreateLotteryTicketController::class,'createLotteryTicket']);
+Route::get('/ticket/{ticketCode}',[CheckLotteryTicketResultController::class,'checkResultLottery']);
 
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
