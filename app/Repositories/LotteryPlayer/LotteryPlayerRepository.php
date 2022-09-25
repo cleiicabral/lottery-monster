@@ -17,7 +17,6 @@ class LotteryPlayerRepository implements LotteryPlayerRepositoryInterface
     public function create(string $fullname): ?LotteryPlayer
     {
         try {
-
             $result = $this->model::create($fullname);
 
             return $result;
