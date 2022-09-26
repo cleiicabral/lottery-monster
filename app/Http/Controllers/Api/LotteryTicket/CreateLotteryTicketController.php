@@ -3,13 +3,13 @@
 namespace App\Http\Controllers\Api\LotteryTicket;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\CreateLotteryTicketRequest;
 use App\Http\Resources\LotteryTicket\LotteryTicketResource;
 use App\Http\Services\LotteryTicket\CreateLotteryTicketService;
-use Illuminate\Http\Request;
 
 class CreateLotteryTicketController extends Controller
 {
-   public function createLotteryTicket(Request $request, CreateLotteryTicketService $service)
+   public function createLotteryTicket(CreateLotteryTicketRequest $request, CreateLotteryTicketService $service)
    {
       try {
 
