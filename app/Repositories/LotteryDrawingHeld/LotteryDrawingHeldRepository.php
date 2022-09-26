@@ -2,6 +2,7 @@
 
 namespace App\Repositories\LotteryDrawingHeld;
 
+use App\Http\Dtos\DrawingHeld\CreateDrawingHeldDto;
 use App\Models\LotteryDrawingHeld;
 use App\Repositories\Interfaces\LotteryDrawingHeld\LotteryDrawingHeldRepositoryInterface;
 
@@ -14,16 +15,15 @@ class LotteryDrawingHeldRepository implements LotteryDrawingHeldRepositoryInterf
        $this->model = $model;
     }
 
-    public function create(string $drawIdentifier, ?string $draw_at=null): ?LotteryDrawingHeld
+    public function create(CreateDrawingHeldDto $drawingHeldDto): ?LotteryDrawingHeld
     {
-
-            $resultCreateModel = $this->model::create([
-                'draw_identifier' => $drawIdentifier,
-                'drawn_at' => $draw_at
-            ]);
+        try {
+            $resultCreateModel = $this->model::create($drawingHeldDto->toArray());
 
             return $resultCreateModel;
-
+        } catch (\Throwable $th) {
+            return null;
+        }
     }
 
     public function findById(string $lotteryDrawingHeldId): ?LotteryDrawingHeld
@@ -39,15 +39,13 @@ class LotteryDrawingHeldRepository implements LotteryDrawingHeldRepositoryInterf
 
     public function findByDrawIdentifier(string $drawIdentifier): ?LotteryDrawingHeld
     {
-        try {
+
             $resultQuery = $this->model::where('draw_identifier',$drawIdentifier)
                 ->with('numberDraw')
                 ->first();
 
             return $resultQuery;
-        } catch (\Throwable $th) {
-            return null;
-        }
+
     }
 
     public function updateDrawHeld(string $lotteryDrawingHeldId, bool $isDraw): ?LotteryDrawingHeld
@@ -71,7 +69,7 @@ class LotteryDrawingHeldRepository implements LotteryDrawingHeldRepositoryInterf
     public function indexLastDraw(): ?LotteryDrawingHeld
     {
         try {
-            $resultQueryLotteryDrawingHeld = $this->model::orderBy('drawn_at','asc')->first();
+            $resultQueryLotteryDrawingHeld = $this->model::orderBy('drawn_at', 'asc')->first();
 
             return $resultQueryLotteryDrawingHeld;
         } catch (\Throwable $th) {

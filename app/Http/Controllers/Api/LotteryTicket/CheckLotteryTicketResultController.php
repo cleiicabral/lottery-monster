@@ -12,14 +12,11 @@ class CheckLotteryTicketResultController extends Controller
    public function checkResultLottery(Request $request, CheckLotteryResultService $service)
    {
       try {
-
         $resultService = $service->execute($request->ticketCode);
 
         return new LotteryResultResource($resultService);
       } catch (\Throwable $th) {
-
         return response()->json(["error" => $th->getMessage()], 400);
-
       }
    }
 }

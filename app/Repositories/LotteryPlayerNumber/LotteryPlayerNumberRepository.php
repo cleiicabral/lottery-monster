@@ -2,6 +2,7 @@
 
 namespace App\Repositories\LotteryPlayerNumber;
 
+use App\Http\Dtos\LotteryPlayerNumber\CreateLotteryPlayerNumberDto;
 use App\Models\LotteryPlayerNumber;
 use App\Repositories\Interfaces\LotteryPlayerNumber\LotteryPlayerNumberRepositoryInterface;
 
@@ -15,13 +16,10 @@ class LotteryPlayerNumberRepository implements LotteryPlayerNumberRepositoryInte
         $this->model = $model;
     }
 
-    public function create(string $lotteryPlayerId, string $lotteryTicketId, int $numberTicket): ?LotteryPlayerNumber
+    public function create(CreateLotteryPlayerNumberDto $lotteryPlayerNumberDto): ?LotteryPlayerNumber
     {
         try {
-            $result = $this->model::create([
-                'lottery_player_id'=> $lotteryPlayerId,
-                'lottery_ticket_id' => $lotteryTicketId,
-                'number_ticket' => $numberTicket]);
+            $result = $this->model::create($lotteryPlayerNumberDto->toArray());
 
             return $result;
         } catch (\Throwable $th) {

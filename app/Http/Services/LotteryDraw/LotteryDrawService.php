@@ -2,6 +2,7 @@
 
 namespace App\Http\Services\LotteryDraw;
 
+use App\Http\Dtos\NumberDraw\CreateNumberDrawDto;
 use App\Repositories\Interfaces\LotteryDrawingHeld\LotteryDrawingHeldRepositoryInterface;
 use App\Repositories\Interfaces\NumberDrawn\NumberDrawnRepositoryInterface;
 use Exception;
@@ -34,11 +35,16 @@ class LotteryDrawService
             throw new Exception('Unable to update drawn');
         }
 
+        $numberDrawDto = new CreateNumberDrawDto([
+            'lottery_drawing_held_id' => $resultFindLotteryDrawing->id
+        ]);
+
         $resultNumberDrawCreate = [];
 
         for ($i=0; $i < config('app.quantity_numbers_player'); $i++) {
-            $numberDrawn = rand(1,60);
-            $resultNumberDrawCreate[] =  $this->numberDrawnRepository->create($resultFindLotteryDrawing->id, $numberDrawn);
+            $numberDrawDto->number_drawn = rand(1,60);
+
+            $resultNumberDrawCreate[] =  $this->numberDrawnRepository->create($numberDrawDto);
             if(!$resultNumberDrawCreate){
                 throw new Exception('Unable to number draw');
             }

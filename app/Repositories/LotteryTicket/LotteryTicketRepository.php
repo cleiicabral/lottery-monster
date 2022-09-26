@@ -2,6 +2,7 @@
 
 namespace App\Repositories\LotteryTicket;
 
+use App\Http\Dtos\LotteryTicket\CreateLotteryTicketDto;
 use App\Models\LotteryTicket;
 use App\Repositories\Interfaces\LotteryTicket\LotteryTicketRepositoryInterface;
 
@@ -14,14 +15,10 @@ class LotteryTicketRepository implements LotteryTicketRepositoryInterface
         $this->model = $model;
     }
 
-    public function create(string $ticketCode,string $lotterPlayerId,string $drawCode, bool $isWinner = false): ?LotteryTicket
+    public function create(CreateLotteryTicketDto $lotteryTicketDto): ?LotteryTicket
     {
         try {
-            $result = $this->model::create(['ticket_code'=> $ticketCode,
-            'lottery_player_id' => $lotterPlayerId,
-            'is_winner' => $isWinner,
-            'draw_code' => $drawCode
-            ]);
+            $result = $this->model::create($lotteryTicketDto->toArray());
 
             return $result;
         } catch (\Throwable $th) {

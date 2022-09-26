@@ -2,9 +2,10 @@
 
 namespace App\Repositories\Interfaces\LotteryPlayerNumber;
 
+use App\Http\Dtos\LotteryPlayerNumber\CreateLotteryPlayerNumberDto;
 use App\Models\LotteryPlayerNumber;
 
 interface LotteryPlayerNumberRepositoryInterface
 {
-    public function create(string $lotteryPlayerId, string $lotteryTicketId, int $numberTicket): ?LotteryPlayerNumber;
+    public function create(CreateLotteryPlayerNumberDto $lotteryPlayerNumberDto): ?LotteryPlayerNumber;
 }
