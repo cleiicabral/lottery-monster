@@ -17,7 +17,8 @@ class CreateLotteryTicketsTable extends Migration
             $table->uuid('id')->primary();
             $table->uuid('lottery_player_id');
             $table->string('ticket_code');
-            $table->boolean('is_drawn')->default(false);
+            $table->string('draw_code');
+            $table->boolean('is_winner')->default(false);
             $table->timestamps();
             $table->softDeletes();
 

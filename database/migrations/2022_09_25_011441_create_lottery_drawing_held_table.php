@@ -16,7 +16,8 @@ class CreateLotteryDrawingHeldTable extends Migration
         Schema::create('lottery_drawing_held', function (Blueprint $table) {
             $table->uuid('id')->primary();
             $table->string('draw_identifier');
-            $table->dateTime('drawn_at');
+            $table->dateTime('drawn_at')->nullable();
+            $table->boolean('is_drawn')->default(false);
             $table->timestamps();
             $table->softDeletes();
         });

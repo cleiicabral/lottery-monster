@@ -14,12 +14,14 @@ class LotteryTicketRepository implements LotteryTicketRepositoryInterface
         $this->model = $model;
     }
 
-    public function create(string $ticketCode,string $lotterPlayerId, bool $isDrawn = false): ?LotteryTicket
+    public function create(string $ticketCode,string $lotterPlayerId,string $drawCode, bool $isWinner = false): ?LotteryTicket
     {
         try {
             $result = $this->model::create(['ticket_code'=> $ticketCode,
             'lottery_player_id' => $lotterPlayerId,
-             'is_drawn' => $isDrawn]);
+            'is_winner' => $isWinner,
+            'draw_code' => $drawCode
+            ]);
 
             return $result;
         } catch (\Throwable $th) {
@@ -39,4 +41,33 @@ class LotteryTicketRepository implements LotteryTicketRepositoryInterface
             return null;
         }
     }
+
+    public function findById(string $lotteryTicketId): ?LotteryTicket
+    {
+        try {
+            $resultFind = $this->model::find($lotteryTicketId);
+
+            return $resultFind;
+        } catch (\Throwable $th) {
+            return null;
+        }
+    }
+
+    public function updateIsWinner(string $lotteryTicketId, bool $isWinner): ?LotteryTicket
+    {
+        try {
+            $lotteryTicket = $this->findById($lotteryTicketId);
+
+            if(!$lotteryTicket){
+                return null;
+            }
+
+            $lotteryTicket->is_winner = $isWinner;
+
+            return $lotteryTicket->save() ? $lotteryTicket : null;
+        } catch (\Throwable $th) {
+            return null;
+        }
+    }
+
 }

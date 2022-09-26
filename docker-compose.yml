@@ -1,0 +1,65 @@
+version: '3'
+services:
+  testnerdmonster:
+    build: .
+    volumes:
+      - ./:/var/www
+    depends_on:
+      - testnerdmonster-mysql
+    networks:
+    - laravel
+
+  testnerdmonster-mysql:
+    image: mysql:8.0
+    container_name: mysql
+    restart: unless-stopped
+    tty: true
+    ports:
+      - "3306:3306"
+    environment:
+      MYSQL_DATABASE: lottery_nerdmonster
+      MYSQL_USER: nerdmonster
+      MYSQL_PASSWORD: mysql
+      MYSQL_ROOT_PASSWORD: secret
+      SERVICE_TAGS: dev
+      SERVICE_NAME: mysql
+    volumes:
+      # - "./.docker/dbdata:/var/lib/mysql"
+      - ./.docker/mysql:/docker-entrypoint-initdb.d
+    networks:
+      - laravel
+
+  testnerdmonster-nginx:
+    build: ./.docker/nginx
+    restart: always
+    ports:
+      - "8009:80"
+    volumes:
+      - ./:/var/www
+    depends_on:
+      - testnerdmonster
+    networks:
+    - laravel
+
+  php-queue:
+    restart: always
+    image: bitnami/laravel:8.6.11-debian-10-r5
+    working_dir: /var/www
+    command: "php artisan queue:work --sleep=30"
+    volumes:
+        - .:/var/www
+    networks:
+    - laravel
+
+  php-schedule:
+    restart: always
+    image: bitnami/laravel:8.6.11-debian-10-r5
+    working_dir: /var/www
+    command:  "php artisan schedule:work"
+    volumes:
+        - .:/var/www
+    networks:
+        - laravel
+networks:
+  laravel:
+    driver: bridge

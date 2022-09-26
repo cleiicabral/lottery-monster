@@ -11,10 +11,16 @@ class NumberDrawn extends Model
 {
     use HasFactory, TraitUuid, SoftDeletes;
 
+    public $incrementing = false;
+
+    protected $keyType = 'string';
+
     public $timestamps = true;
+
+    protected $table = 'numbers_drawn';
 
     protected $fillable = [
         'lottery_drawing_held_id',
-        'number_draw',
+        'number_drawn',
     ];
 }

@@ -20,7 +20,8 @@ class LotteryTicket extends Model
     protected $fillable = [
         'lottery_player_id',
         'ticket_code',
-        'is_drawn',
+        'is_winner',
+        'draw_code',
     ];
 
     public function lotteryPlayerNumber()
