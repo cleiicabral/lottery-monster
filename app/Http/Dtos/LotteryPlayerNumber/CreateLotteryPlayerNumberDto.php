@@ -6,6 +6,7 @@ use Spatie\DataTransferObject\DataTransferObject;
 
 class CreateLotteryPlayerNumberDto extends DataTransferObject
 {
+
     public string $lottery_player_id;
     public string $lottery_ticket_id;
     public int $number_ticket;

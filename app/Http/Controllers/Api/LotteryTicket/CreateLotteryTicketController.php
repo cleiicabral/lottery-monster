@@ -12,15 +12,11 @@ class CreateLotteryTicketController extends Controller
    public function createLotteryTicket(CreateLotteryTicketRequest $request, CreateLotteryTicketService $service)
    {
       try {
-
         $resultService = $service->execute($request->name, $request->numbers);
 
         return new LotteryTicketResource($resultService);
-
       } catch (\Throwable $th) {
-
         return response()->json(["error" => $th->getMessage()], 400);
-
       }
    }
 }

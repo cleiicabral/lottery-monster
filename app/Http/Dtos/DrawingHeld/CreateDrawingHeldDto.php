@@ -6,6 +6,7 @@ use Spatie\DataTransferObject\DataTransferObject;
 
 class CreateDrawingHeldDto extends DataTransferObject
 {
+
     public string $draw_identifier;
     public string $draw_at;
 

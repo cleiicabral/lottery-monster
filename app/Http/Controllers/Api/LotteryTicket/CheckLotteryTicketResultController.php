@@ -16,9 +16,7 @@ class CheckLotteryTicketResultController extends Controller
 
         return new LotteryResultResource($resultService);
       } catch (\Throwable $th) {
-
         return response()->json(["error" => $th->getMessage()], 400);
-
       }
    }
 }
