@@ -53,10 +53,10 @@ class CheckLotteryResultService
             $machineNumbers[] = $lotteryDrawing->number_drawn;
         }
 
-        $diffArrayNumbers = array_diff($playerNumbers,$machineNumbers);
+        $diffArrayNumbers = array_diff($playerNumbers, $machineNumbers);
 
         if(empty($diffArrayNumbers)){
-            $ticketWinner = $this->lotteryTicketRepository->updateIsWinner($queryTicketresult->id,true);
+            $ticketWinner = $this->lotteryTicketRepository->updateIsWinner($queryTicketresult->id, true);
             $resultLotteryDrawingHeld->message = 'you won';
         }else{
             $resultLotteryDrawingHeld->message = 'you lost';

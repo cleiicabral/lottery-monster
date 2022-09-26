@@ -2,6 +2,7 @@
 
 namespace App\Repositories\NumberDrawn;
 
+use App\Http\Dtos\NumberDraw\CreateNumberDrawDto;
 use App\Models\NumberDrawn;
 use App\Repositories\Interfaces\NumberDrawn\NumberDrawnRepositoryInterface;
 
@@ -14,13 +15,10 @@ class NumberDrawnRepository implements NumberDrawnRepositoryInterface
         $this->model = $model;
     }
 
-    public function create(string $lotteryDrawingHeldId, int $numberDraw): ?NumberDrawn
+    public function create(CreateNumberDrawDto $numberDrawDto): ?NumberDrawn
     {
         try {
-            $resultCreateModel = $this->model::create([
-                'lottery_drawing_held_id' => $lotteryDrawingHeldId,
-                'number_drawn' => $numberDraw
-            ]);
+            $resultCreateModel = $this->model::create($numberDrawDto->toArray());
 
             return $resultCreateModel;
         } catch (\Throwable $th) {
